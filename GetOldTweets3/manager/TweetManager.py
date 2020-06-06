@@ -4,6 +4,7 @@ import json, re, datetime, sys, random, http.cookiejar
 import urllib.request, urllib.parse, urllib.error
 from pyquery import PyQuery
 from .. import models
+import time
 
 class TweetManager:
     """A class for accessing the Twitter's search engine"""
@@ -354,7 +355,8 @@ class TweetManager:
         try:
             response = opener.open(url)
             jsonResponse = response.read()
-        except Exception as e:
+            time.sleep(5)
+            except Exception as e:
             print("An error occured during an HTTP request:", str(e))
             print("Try to open in browser: https://twitter.com/search?q=%s&src=typd" % urllib.parse.quote(urlGetData))
             sys.exit()
