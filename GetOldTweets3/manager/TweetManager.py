@@ -67,7 +67,7 @@ class TweetManager:
             active = True
             while active:
                 print("activeeee")
-                json = TweetManager.getJsonResponse(tweetCriteria, refreshCursor, cookieJar, proxy, user_agent, debug=debug, numrequest)
+                json = TweetManager.getJsonResponse(tweetCriteria, refreshCursor, cookieJar, proxy, user_agent, debug=debug, numrequest=numrequest)
                 numrequest = numrequest+1
                 print(numrequest)
                 if len(json['items_html'].strip()) == 0:
