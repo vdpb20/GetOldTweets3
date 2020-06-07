@@ -20,8 +20,6 @@ class TweetManager:
         'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36',
         'Mozilla/5.0 (Windows NT 6.1; Trident/7.0; rv:11.0) like Gecko',
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Safari/605.1.15'
-        'Mozilla/5.0 (Android; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Safari/605.1.15',
-        'Mozilla/5.0 (IOS; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Safari/605.1.15',
     ]
 
     @staticmethod
@@ -66,7 +64,6 @@ class TweetManager:
 
             active = True
             while active:
-                print("activeeee")
                 json = TweetManager.getJsonResponse(tweetCriteria, refreshCursor, cookieJar, proxy, user_agent, debug=debug, numrequest=numrequest)
                 numrequest = numrequest+1
                 print(numrequest)
@@ -282,7 +279,6 @@ class TweetManager:
         """Invoke an HTTP query to Twitter.
         Should not be used as an API function. A static method.
         """
-        print("this wont print")
         url = "https://twitter.com/i/search/timeline?"
 
         if not tweetCriteria.topTweets:
@@ -354,7 +350,6 @@ class TweetManager:
                 opener = urllib.request.build_opener(urllib.request.ProxyHandler({'http': proxy, 'https': proxy}), urllib.request.HTTPCookieProcessor(cookieJar))
             else:
                 opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cookieJar))
-            time.sleep(20)
             opener.addheaders = headers
         except:
             print("an error occured at the build opener step")
@@ -367,7 +362,7 @@ class TweetManager:
         try:
             response = opener.open(url)
             jsonResponse = response.read()
-            time.sleep(20)
+            time.sleep(5)
         except Exception as e:
                 print("An error occured during an HTTP request:", str(e))
                 print("Try to open in browser: https://twitter.com/search?q=%s&src=typd" % urllib.parse.quote(urlGetData))
