@@ -345,12 +345,17 @@ class TweetManager:
             ('Connection', "keep-alive")
         ]
 
-        if proxy:
-            opener = urllib.request.build_opener(urllib.request.ProxyHandler({'http': proxy, 'https': proxy}), urllib.request.HTTPCookieProcessor(cookieJar))
-        else:
-            opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cookieJar))
-        opener.addheaders = headers
-
+        try:
+            if proxy:
+                opener = urllib.request.build_opener(urllib.request.ProxyHandler({'http': proxy, 'https': proxy}), urllib.request.HTTPCookieProcessor(cookieJar))
+            else:
+                opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cookieJar))
+            time.sleep(20)
+            opener.addheaders = headers
+        except:
+            print("an error occured at the build opener step")
+            print("number of requests: " + str(numrequest))
+            
         if debug:
             print(url)
             print('\n'.join(h[0]+': '+h[1] for h in headers))
