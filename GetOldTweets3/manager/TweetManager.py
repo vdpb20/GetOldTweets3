@@ -280,6 +280,7 @@ class TweetManager:
         """Invoke an HTTP query to Twitter.
         Should not be used as an API function. A static method.
         """
+        print("this wont print")
         url = "https://twitter.com/i/search/timeline?"
 
         if not tweetCriteria.topTweets:
