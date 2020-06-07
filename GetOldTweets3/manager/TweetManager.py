@@ -39,6 +39,7 @@ class TweetManager:
         resultsAux = []
         cookieJar = http.cookiejar.CookieJar()
         user_agent = random.choice(TweetManager.user_agents)
+        numrequest = 0
 
         all_usernames = []
         usernames_per_batch = 20
@@ -63,7 +64,8 @@ class TweetManager:
 
             active = True
             while active:
-                json = TweetManager.getJsonResponse(tweetCriteria, refreshCursor, cookieJar, proxy, user_agent, debug=debug)
+                json = TweetManager.getJsonResponse(tweetCriteria, refreshCursor, cookieJar, proxy, user_agent, debug=debug, numrequest)
+                numrequest = numrequest+1
                 if len(json['items_html'].strip()) == 0:
                     break
 
@@ -272,7 +274,7 @@ class TweetManager:
         return attr
 
     @staticmethod
-    def getJsonResponse(tweetCriteria, refreshCursor, cookieJar, proxy, useragent=None, debug=False):
+    def getJsonResponse(tweetCriteria, refreshCursor, cookieJar, proxy, useragent=None, debug=False, numrequest=0):
         """Invoke an HTTP query to Twitter.
         Should not be used as an API function. A static method.
         """
@@ -359,6 +361,7 @@ class TweetManager:
             except Exception as e:
             print("An error occured during an HTTP request:", str(e))
             print("Try to open in browser: https://twitter.com/search?q=%s&src=typd" % urllib.parse.quote(urlGetData))
+            print("Number of requests: " + str(numrequest))
             sys.exit()
 
         try:
