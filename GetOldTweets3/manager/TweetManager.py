@@ -66,6 +66,7 @@ class TweetManager:
             while active:
                 json = TweetManager.getJsonResponse(tweetCriteria, refreshCursor, cookieJar, proxy, user_agent, debug=debug, numrequest)
                 numrequest = numrequest+1
+                print(numrequest)
                 if len(json['items_html'].strip()) == 0:
                     break
 
